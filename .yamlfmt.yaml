@@ -1,0 +1,6 @@
+---
+formatter:
+  retain_line_breaks_single: true
+  max_line_length: 120
+  include_document_start: true
+  pad_line_comments: 1
