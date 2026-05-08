@@ -1,0 +1,33 @@
+---
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-dotnet@v5
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore GiviKDev.OAuth.slnx
+
+      - name: Format check
+        run: dotnet format GiviKDev.OAuth.slnx --verify-no-changes
+
+      - name: Build
+        run: dotnet build GiviKDev.OAuth.slnx --no-restore --warnaserrors
+
+      - name: Test
+        run: dotnet test GiviKDev.OAuth.slnx --no-build
