@@ -1,0 +1,41 @@
+---
+name: Bug Report
+description: Report a bug in GiviKDev.OAuth
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps or code to reproduce the issue.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Package version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        - GiviKDev.OAuth
+        - GiviKDev.OAuth.Mcp
+        - GiviKDev.OAuth.Entra
+    validations:
+      required: true
+  - type: input
+    id: idp
+    attributes:
+      label: Identity Provider
+      placeholder: "Entra External ID, Okta, Cognito, etc."
