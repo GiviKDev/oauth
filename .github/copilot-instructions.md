@@ -1,45 +1,51 @@
 # Project Context
 
-GiviKDev.OAuth is a set of NuGet packages that solve
-OAuth 2.1 authentication for resource servers that
-delegate to an external IdP. The primary use case is
-MCP (Model Context Protocol) servers, but the core
-package is IdP-agnostic and protocol-agnostic.
+GiviKDev.OAuth is a set of NuGet packages that provide
+OAuth 2.1 support for ASP.NET Core applications. It
+starts as a proxy facade to upstream IdPs and is
+designed to evolve into a full OAuth server / IdP.
+The primary use case is MCP (Model Context Protocol)
+servers, but the core package is IdP-agnostic and
+protocol-agnostic.
 
 ## Packages
 
 | Package | Purpose |
 |---|---|
-| `GiviKDev.OAuth` | Core OAuth facade — AS metadata, /authorize proxy, /token proxy, DCR facade |
+| `GiviKDev.OAuth` | Core — handler interfaces, default proxy implementations, AS metadata, /authorize, /token, /register |
 | `GiviKDev.OAuth.Mcp` | MCP integration — PRM serving via the MCP SDK |
 | `GiviKDev.OAuth.Entra` | Entra adapter — computes upstream URLs, strips `resource` parameter |
 
 ## Design Philosophy
 
-This is a **configuration-driven facade**, not a
-provider-based framework. IdP differences are resolved
-at startup via options, not at runtime via dispatch.
-There is no `IOAuthProvider` interface. Adapters like
-`.Entra` are thin extension methods that call
-`AddGiviKDevOAuth()` with computed options.
+This is a **handler-based platform** that ships with
+proxy defaults. Each OAuth endpoint is backed by a
+handler interface resolved from DI:
 
-If you're tempted to add runtime polymorphism, stop and
-ask: is this configuration or behaviour?
+- `IOAuthMetadataHandler`
+- `IOAuthAuthorizeHandler`
+- `IOAuthTokenHandler`
+- `IOAuthRegistrationHandler`
 
-- **Configuration** = a static value or a delegate
-  wired once at startup, even if the delegate runs
-  per-request. Examples: upstream token endpoint URL,
-  parameters to strip, client ID, a
-  `Func<HttpContext, Task>` hook.
-- **Behaviour** = multiple implementations of an
-  abstraction, selected at runtime via type dispatch.
-  Examples: an `IOAuthProvider` with Entra/Okta
-  implementations, a strategy pattern resolved from DI
-  per-request.
+Default implementations (`Proxy*Handler`) proxy to an
+upstream IdP. Consumers replace any handler by
+registering their own implementation before calling
+`AddOAuth()`.
 
-If it can be expressed as an option value or a hook
-delegate, it's configuration. Add an option, not an
-interface.
+**Configuration vs behaviour:**
+
+- **Configuration** = static values in `OAuthOptions`,
+  wired once at startup. Examples: upstream endpoints,
+  parameters to strip, client ID, scopes.
+- **Behaviour** = handler implementations resolved
+  from DI. Examples: `ProxyTokenHandler` (proxies
+  upstream), a future `LocalTokenHandler` (issues
+  tokens directly).
+
+Use options for values, handler interfaces for
+behaviour. Adapters like `.Entra` are thin extension
+methods that call `AddOAuth()` with computed options
+and optionally register adapter-specific handlers.
 
 When the upstream IdP is unavailable or returns a
 non-2xx status code, proxy that status code to the
@@ -69,20 +75,44 @@ a specific RFC, a real constraint, an observed failure.
 
 ### After Code Changes
 
-Run `make dotnet-rebuild` (not `make dotnet-build`) to
-verify compilation. Rebuild cleans first, ensuring no
-stale artifacts.
+Run `make dotnet-rebuild` to verify compilation.
+Rebuild uses `--no-incremental`, ensuring no stale
+artifacts.
 
 Fix all errors before proceeding. Repeat until clean.
 
 Do not suppress warnings to pass the build. Fix the
 underlying issue.
 
+### After Formatting or Style Changes
+
+Run `make dotnet-format` to auto-fix style issues.
+Run `make dotnet-format-check` to verify without
+modifying files (useful in CI or to inspect what's
+wrong before fixing).
+
+### Running Tests
+
+Run `make dotnet-test` after builds to verify tests.
+Tests require a prior build (`--no-build` flag).
+
 ### Before Committing
 
 Run `make pre-commit`. This runs pre-commit hooks,
 rebuilds, and runs the full test suite. All checks
 must pass.
+
+### Available Make Targets
+
+| Target | Use When |
+|---|---|
+| `make dotnet-build` | Quick incremental build |
+| `make dotnet-rebuild` | After code changes (clean build) |
+| `make dotnet-test` | Run all tests (requires prior build) |
+| `make dotnet-format` | Fix code style issues |
+| `make dotnet-format-check` | Check style without modifying files |
+| `make pre-commit` | Before committing (full validation) |
+| `make ci` | Reproduce CI pipeline locally |
 
 ### Build Rules
 
@@ -107,11 +137,11 @@ The project enforces strict quality:
 
 Before considering a task done:
 
-- [ ] `dotnet format` passes
-- [ ] `dotnet build` succeeds with zero warnings
+- [ ] `make dotnet-format-check` passes
+- [ ] `make dotnet-rebuild` succeeds with zero warnings
 - [ ] New public types have XML doc comments
 - [ ] No unnecessary `using` directives
 - [ ] No `#pragma warning disable` without justification
 - [ ] No `null!` or `default!` to silence the compiler
 - [ ] Code follows existing patterns in the codebase
-- [ ] Tests pass
+- [ ] `make dotnet-test` passes
