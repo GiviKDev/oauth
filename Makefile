@@ -36,19 +36,22 @@ update-hooks: ## Update pre-commit hooks to latest versions
 # --- .NET ---
 
 dotnet-build: ## Build the solution
-	dotnet build $(SLN) --warnaserrors
+	dotnet build $(SLN)
 
 dotnet-rebuild: ## Clean and rebuild
-	dotnet build $(SLN) --warnaserrors --no-incremental
+	dotnet build $(SLN) --no-incremental
 
 dotnet-test: ## Run all tests
-	dotnet test $(SLN) --no-build
+	dotnet test --solution $(SLN) --no-build
 
-dotnet-format: ## Run dotnet format (auto-fix)
-	dotnet format $(SLN)
+dotnet-coverage: ## Run tests with code coverage (Cobertura XML)
+	dotnet dotnet-coverage collect --include-files "tests/OAuth.Tests/bin/Debug/net10.0/GiviKDev.OAuth.dll" --output coverage.cobertura.xml --output-format cobertura "dotnet test --solution $(SLN) --no-build"
 
-dotnet-format-check: ## Verify formatting without changes
-	dotnet format $(SLN) --verify-no-changes
+dotnet-format: ## Format .NET code
+	dotnet format $(SLN) --severity info
+
+dotnet-format-check: ## Verify .NET formatting without modifying files (shows diagnostics)
+	dotnet format $(SLN) --verify-no-changes --severity info --verbosity normal
 
 dotnet-update: ## Update all NuGet packages
 	dotnet outdated $(SLN) --upgrade
@@ -91,7 +94,7 @@ release: ## Run semantic-release (CI only)
 # Help
 # ──────────────────────────────────────────────────────────────────────────────
 
-.PHONY: help setup update-hooks dotnet-build dotnet-rebuild dotnet-test dotnet-format \
+.PHONY: help setup update-hooks dotnet-build dotnet-rebuild dotnet-test dotnet-coverage dotnet-format \
         dotnet-format-check dotnet-update dotnet-outdated dotnet-upgrade-sdk \
         ci pre-commit release-dry release
 

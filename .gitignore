@@ -39,6 +39,9 @@ ScaffoldingReadMe.txt
 # dotenv environment variables file
 .env
 
+# Code coverage
+coverage.cobertura.xml
+
 # Others
 ~$*
 *~
