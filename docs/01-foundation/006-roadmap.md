@@ -6,15 +6,15 @@
 > tested. A developer can wire it up with manual
 > configuration and connect an MCP client through it.
 
-- [ ] `GiviKDev.OAuth` core package
-  - [ ] AS metadata endpoint
-  - [ ] `/authorize` redirect proxy with parameter
+- [x] `GiviKDev.OAuth` core package
+  - [x] AS metadata endpoint
+  - [x] `/authorize` redirect proxy with parameter
     stripping
-  - [ ] `/token` POST proxy with parameter stripping
-  - [ ] `/register` DCR facade
-  - [ ] Options validation at startup
-- [ ] Integration tests against a mock upstream IdP
-- [ ] Repo scaffolding and CI (this commit)
+  - [x] `/token` POST proxy with parameter stripping
+  - [x] `/register` DCR facade
+  - [x] Options validation at startup
+- [x] Integration tests against a mock upstream IdP
+- [x] Repo scaffolding and CI
 
 ## Phase 2 — MCP Integration
 
