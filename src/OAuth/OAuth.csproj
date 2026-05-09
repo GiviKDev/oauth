@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>OAuth 2.1 facade for ASP.NET Core — AS metadata, authorize proxy, token proxy, and DCR facade for upstream identity providers.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="GiviKDev.OAuth.Tests" />
+  </ItemGroup>
+
+</Project>
