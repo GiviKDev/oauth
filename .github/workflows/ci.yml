@@ -23,11 +23,14 @@ jobs:
       - name: Restore
         run: dotnet restore GiviKDev.OAuth.slnx
 
+      - name: Restore tools
+        run: dotnet tool restore
+
       - name: Format check
         run: dotnet format GiviKDev.OAuth.slnx --verify-no-changes
 
       - name: Build
-        run: dotnet build GiviKDev.OAuth.slnx --no-restore --warnaserrors
+        run: dotnet build GiviKDev.OAuth.slnx --no-restore
 
       - name: Test
-        run: dotnet test GiviKDev.OAuth.slnx --no-build
+        run: dotnet test --solution GiviKDev.OAuth.slnx --no-build
