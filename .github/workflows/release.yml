@@ -54,7 +54,7 @@ jobs:
         run: |
           VERSION=$(grep '<Version>' Directory.Build.props | sed 's/.*<Version>\(.*\)<\/Version>.*/\1/')
           TAG="v${VERSION}"
-          if git tag --list "$TAG" | grep -q "$TAG"; then
+          if git tag --points-at HEAD | grep -qx "$TAG"; then
             echo "released=true" >> "$GITHUB_OUTPUT"
             echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           else
