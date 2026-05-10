@@ -17,17 +17,21 @@ proxies OAuth protocol messages to the upstream IdP
 and serves the metadata that MCP clients need to
 discover and authenticate.
 
-### Configuration Over Interfaces
+### Handler-Based with Proxy Defaults
 
-IdP differences are resolved at startup via options,
-not at runtime via dispatch. There is no `IOAuthProvider`
-interface. Adapters like `.Entra` are thin extension
-methods that call `AddGiviKDevOAuth()` with computed
-options.
+Each OAuth endpoint is backed by a handler interface
+resolved from DI (`IOAuthMetadataHandler`,
+`IOAuthAuthorizeHandler`, `IOAuthTokenHandler`,
+`IOAuthRegistrationHandler`). Default implementations
+proxy to the upstream IdP. Consumers replace any
+handler by registering their own before calling
+`AddOAuth()`.
 
-If a behaviour can be expressed as a delegate or a
-static value, it's configuration — not a reason to
-add an abstraction.
+Adapters like `.Entra` are thin extension methods
+that call `AddOAuth()` with computed options.
+
+Configuration is for static values (URLs, parameters).
+Handler interfaces are for behaviour.
 
 ### Transparent Proxying
 

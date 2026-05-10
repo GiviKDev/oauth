@@ -26,8 +26,6 @@
 
 ## Deferred
 
-- **NuGet publication** — will follow once the core
-  package is stable and tested.
 - **Okta adapter** — same pattern as Entra, different
   URL computation.
 - **Cognito adapter** — same pattern, different URL
@@ -50,5 +48,8 @@ These will never be in scope:
   are persisted.
 - **Session management** — no login sessions, no
   cookies, no server-side state.
-- **Runtime provider dispatch** — no `IOAuthProvider`
-  interface, no strategy pattern resolved from DI.
+- **Runtime provider dispatch** — no single
+  `IOAuthProvider` interface that dispatches to
+  different IdP backends. Each endpoint has its own
+  handler interface; the architecture is per-endpoint
+  handlers, not per-provider polymorphism.

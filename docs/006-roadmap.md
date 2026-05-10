@@ -19,12 +19,12 @@
 ## Phase 2 — MCP Integration
 
 > **Target state.** MCP servers can add OAuth support
-> with a single `AddGiviKDevOAuth()` call plus
+> with a single `AddOAuthMcp()` call plus
 > PRM served through the MCP SDK pipeline.
 
-- [ ] `GiviKDev.OAuth.Mcp` package
-  - [ ] PRM serving via MCP SDK's `WithHttpTransport`
-  - [ ] DI integration with the core package
+- [x] `GiviKDev.OAuth.Mcp` package
+  - [x] PRM serving via MCP SDK's `WithHttpTransport`
+  - [x] DI integration with the core package
 
 ## Phase 3 — Entra Adapter
 
@@ -32,19 +32,19 @@
 > a tenant ID and client ID. The adapter computes all
 > upstream URLs and strips `resource`.
 
-- [ ] `GiviKDev.OAuth.Entra` package
-  - [ ] Upstream URL computation from tenant ID /
+- [x] `GiviKDev.OAuth.Entra` package
+  - [x] Upstream URL computation from tenant ID /
     policy
-  - [ ] `resource` parameter stripping
-  - [ ] Tested against Entra External ID
+  - [x] `resource` parameter stripping
+  - [x] Tested against Entra External ID
 
 ## Phase 4 — Publication
 
 > **Target state.** Packages are on NuGet with semantic
 > versioning, automated releases, and documentation.
 
-- [ ] NuGet publication pipeline
-- [ ] Usage documentation and examples
+- [x] NuGet publication pipeline
+- [x] Usage documentation and examples
 - [ ] Sample MCP server project
 
 ## Future Considerations

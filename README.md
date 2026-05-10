@@ -1,5 +1,9 @@
 # GiviKDev.OAuth
 
+[![CI](https://github.com/GiviKDev/oauth/actions/workflows/ci.yml/badge.svg)](https://github.com/GiviKDev/oauth/actions/workflows/ci.yml)
+[![NuGet](https://img.shields.io/nuget/v/GiviKDev.OAuth)](https://www.nuget.org/packages/GiviKDev.OAuth)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 OAuth 2.1 facade for ASP.NET Core. Bridges MCP servers
 with enterprise identity providers that don't support
 the full OAuth stack MCP requires (DCR, resource indicators).
@@ -17,8 +21,7 @@ the full OAuth stack MCP requires (DCR, resource indicators).
 Published on [NuGet](https://www.nuget.org/profiles/GiviKDev).
 Under active development.
 
-See [docs/01-foundation/](docs/01-foundation/) for project
-context, scope, and roadmap.
+See [docs/](docs/) for project context, scope, and roadmap.
 
 ## Contributing
 

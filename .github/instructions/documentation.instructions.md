@@ -25,14 +25,20 @@ current state from planned state:
 
 ## Document Types
 
-### Foundation (`docs/01-foundation/`)
+### Foundation (`docs/`)
 
 **Goal:** Project identity — problem, vision, scope,
 domain concepts, solution architecture, roadmap,
 protocol findings.
 
-**Structure:** Narrative. `# Title`, brief intro,
-then sections as needed. No rigid template.
+**Files:**
+- `001-problem.md` — The protocol gap
+- `002-vision.md` — Guiding principles
+- `003-scope.md` — In/out/deferred
+- `004-concepts.md` — Ubiquitous language
+- `005-architecture.md` — Package structure and data flow
+- `006-roadmap.md` — What is built vs planned
+- `007-protocol-findings.md` — Protocol-level gotchas
 
 **Rules:**
 - Mark unbuilt capabilities with `> **Target state.**`

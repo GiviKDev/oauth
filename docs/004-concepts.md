@@ -62,5 +62,5 @@ when it doesn't match the expected app URI pattern).
 A thin extension method package (e.g., `.Entra`) that
 computes IdP-specific configuration — upstream endpoint
 URLs, parameters to strip — and passes it to the core
-`AddGiviKDevOAuth()` call. Adapters are compile-time
-helpers, not runtime abstractions.
+`AddOAuth()` call. Adapters are compile-time helpers,
+not runtime abstractions.

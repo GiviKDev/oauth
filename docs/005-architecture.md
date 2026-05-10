@@ -69,12 +69,12 @@
 
 ## Design Philosophy
 
-### Configuration-Driven
+### Configuration + Handlers
 
-All IdP-specific behaviour is expressed as options:
+IdP-specific values are expressed as options:
 
 ```csharp
-builder.Services.AddGiviKDevOAuth(options =>
+builder.Services.AddOAuth(options =>
 {
     options.UpstreamAuthorizeEndpoint = "https://...";
     options.UpstreamTokenEndpoint = "https://...";
@@ -85,16 +85,22 @@ builder.Services.AddGiviKDevOAuth(options =>
 
 Adapters like `.Entra` are convenience methods that
 compute these options from IdP-specific inputs
-(tenant ID, policy name) and call `AddGiviKDevOAuth`.
+(tenant ID, policy name) and call `AddOAuth()`.
 
-### No Runtime Polymorphism
+### Handler Interfaces
 
-There is no `IOAuthProvider` interface. There is no
-strategy pattern resolved from DI. If you're using
-Entra, the Entra adapter sets the right URLs at
-startup. At runtime, the core package sees only
-configured values — it doesn't know or care which IdP
-is behind them.
+Each endpoint is backed by a handler interface
+resolved from DI. Default implementations proxy to
+the upstream IdP. Register your own implementation
+before calling `AddOAuth()` to override any endpoint:
+
+- `IOAuthMetadataHandler` → `ProxyMetadataHandler`
+- `IOAuthAuthorizeHandler` → `ProxyAuthorizeHandler`
+- `IOAuthTokenHandler` → `ProxyTokenHandler`
+- `IOAuthRegistrationHandler` → `ProxyRegistrationHandler`
+
+Handlers are registered via `TryAddSingleton` — first
+registration wins.
 
 ### Transparent Error Proxying
 

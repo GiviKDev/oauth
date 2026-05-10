@@ -4,8 +4,22 @@ name: CI
 on:
   pull_request:
     branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'LICENSE'
+      - '.github/instructions/**'
+      - '.github/skills/**'
+      - '.github/copilot-instructions.md'
   push:
     branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'LICENSE'
+      - '.github/instructions/**'
+      - '.github/skills/**'
+      - '.github/copilot-instructions.md'
 
 permissions:
   contents: read
