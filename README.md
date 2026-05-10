@@ -14,7 +14,8 @@ the full OAuth stack MCP requires (DCR, resource indicators).
 
 ## Status
 
-Under active development. Not yet published to NuGet.
+Published on [NuGet](https://www.nuget.org/profiles/GiviKDev).
+Under active development.
 
 See [docs/01-foundation/](docs/01-foundation/) for project
 context, scope, and roadmap.

@@ -24,7 +24,12 @@
     <RepositoryUrl>https://github.com/givikdev/oauth</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>oauth;mcp;aspnetcore;facade</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="/" Condition="Exists('README.md')" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Meziantou.Analyzer">
