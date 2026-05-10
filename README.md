@@ -40,13 +40,36 @@ app.MapOAuth();
 ### With MCP Server
 
 ```csharp
-builder.Services.AddOAuthMcp(opts =>
+builder.Services.AddOAuth(opts =>
 {
     opts.UpstreamAuthorizeEndpoint = "https://idp.example.com/authorize";
     opts.UpstreamTokenEndpoint = "https://idp.example.com/token";
     opts.ClientId = "my-client-id";
     opts.ScopesSupported = ["openid", "profile"];
 });
+
+builder.Services.AddOAuthMcp();
+
+builder.Services.AddMcpServer()
+    .WithHttpTransport();
+
+app.UseAuthentication();
+app.UseAuthorization();
+app.MapOAuth();
+app.MapMcp().RequireAuthorization();
+```
+
+### With Entra + MCP (composable)
+
+```csharp
+builder.Services.AddOAuthEntra(opts =>
+{
+    opts.TenantId = "your-tenant-id";
+    opts.ClientId = "your-client-id";
+    opts.ScopesSupported = ["api://your-api/access_as_user"];
+});
+
+builder.Services.AddOAuthMcp();
 
 builder.Services.AddMcpServer()
     .WithHttpTransport();

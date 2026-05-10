@@ -8,13 +8,15 @@ your OAuth configuration.
 ## Quick Start
 
 ```csharp
-builder.Services.AddOAuthMcp(opts =>
+builder.Services.AddOAuth(opts =>
 {
     opts.UpstreamAuthorizeEndpoint = "https://idp.example.com/authorize";
     opts.UpstreamTokenEndpoint = "https://idp.example.com/token";
     opts.ClientId = "my-client-id";
     opts.ScopesSupported = ["openid", "profile"];
 });
+
+builder.Services.AddOAuthMcp();
 
 builder.Services.AddMcpServer()
     .WithHttpTransport();
@@ -27,7 +29,6 @@ app.MapMcp().RequireAuthorization();
 
 ## What It Does
 
-- Calls `AddOAuth()` to register the core OAuth facade
 - Registers the `McpAuth` authentication scheme via the MCP SDK
 - Serves `/.well-known/oauth-protected-resource` with `resource`,
   `authorization_servers`, `scopes_supported`, and

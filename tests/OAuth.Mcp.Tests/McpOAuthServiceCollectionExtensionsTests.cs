@@ -14,13 +14,15 @@ public sealed class McpOAuthServiceCollectionExtensionsTests
         WebApplicationBuilder builder = WebApplication.CreateBuilder();
         builder.WebHost.UseTestServer();
 
-        builder.Services.AddOAuthMcp(opts =>
+        builder.Services.AddOAuth(opts =>
         {
             opts.UpstreamAuthorizeEndpoint = "https://login.example.com/authorize";
             opts.UpstreamTokenEndpoint = "https://login.example.com/token";
             opts.ClientId = "test-client-id";
             opts.ScopesSupported = ["openid", "profile"];
         });
+
+        builder.Services.AddOAuthMcp();
 
         builder.Services.AddMcpServer()
             .WithHttpTransport(opts => opts.Stateless = true);
@@ -55,14 +57,5 @@ public sealed class McpOAuthServiceCollectionExtensionsTests
             Assert.Equal("openid", scopes[0].GetString());
             Assert.Equal("profile", scopes[1].GetString());
         }
-    }
-
-    [Fact]
-    public void AddOAuthMcp_NullConfigure_Throws()
-    {
-        ServiceCollection services = new();
-
-        Assert.Throws<ArgumentNullException>(
-            () => services.AddOAuthMcp(null!));
     }
 }

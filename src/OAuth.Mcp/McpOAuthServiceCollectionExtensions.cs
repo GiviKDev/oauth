@@ -5,25 +5,19 @@ using ModelContextProtocol.Authentication;
 namespace GiviKDev.OAuth.Mcp;
 
 /// <summary>
-/// Extension methods for registering OAuth + MCP authentication services.
+/// Extension methods for registering MCP authentication services.
 /// </summary>
 public static class McpOAuthServiceCollectionExtensions
 {
     /// <summary>
-    /// Registers the OAuth facade and configures MCP authentication with
-    /// protected resource metadata (RFC 9728) derived from the OAuth options.
+    /// Configures MCP authentication with protected resource metadata
+    /// (RFC 9728) derived from already-registered <see cref="OAuthOptions"/>.
+    /// Call <c>AddOAuth</c> or an adapter (e.g. <c>AddOAuthEntra</c>) first.
     /// </summary>
     /// <param name="services">The service collection.</param>
-    /// <param name="configure">Configures <see cref="OAuthOptions"/>.</param>
     /// <returns>The service collection for chaining.</returns>
-    public static IServiceCollection AddOAuthMcp(
-        this IServiceCollection services,
-        Action<OAuthOptions> configure)
+    public static IServiceCollection AddOAuthMcp(this IServiceCollection services)
     {
-        ArgumentNullException.ThrowIfNull(configure);
-
-        services.AddOAuth(configure);
-
         services.AddAuthentication()
             .AddMcp(options =>
             {
