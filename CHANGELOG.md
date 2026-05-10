@@ -1,3 +1,9 @@
+## [0.2.1](https://github.com/GiviKDev/oauth/compare/v0.2.0...v0.2.1) (2026-05-10)
+
+### Bug Fixes
+
+* **ci:** detect version by tag on HEAD, not tag existence ([c0e1b1f](https://github.com/GiviKDev/oauth/commit/c0e1b1fe38b2bf7fb91b8ecfa1fbe9f5ace25d92))
+
 ## [0.2.0](https://github.com/GiviKDev/oauth/compare/v0.1.0...v0.2.0) (2026-05-10)
 
 ### Features

@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <Authors>Givi Kesanashvili</Authors>
     <Description>OAuth 2.1 facade for ASP.NET Core — bridges MCP servers with enterprise identity providers.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
