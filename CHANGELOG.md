@@ -1,3 +1,16 @@
+## [0.3.0](https://github.com/GiviKDev/oauth/compare/v0.2.1...v0.3.0) (2026-05-10)
+
+### ⚠ BREAKING CHANGES
+
+* **mcp:** AddOAuthMcp no longer accepts Action<OAuthOptions>.
+Call AddOAuth or AddOAuthEntra before AddOAuthMcp. The MCP package
+now only wires PRM and authentication, leaving core OAuth registration
+to the consumer or an adapter.
+
+### Features
+
+* **mcp:** make AddOAuthMcp composable with adapters ([c3c621e](https://github.com/GiviKDev/oauth/commit/c3c621e85937ea324759b83cba2ff08eed6e506d))
+
 ## [0.2.1](https://github.com/GiviKDev/oauth/compare/v0.2.0...v0.2.1) (2026-05-10)
 
 ### Bug Fixes
