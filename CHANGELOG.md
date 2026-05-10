@@ -1,3 +1,9 @@
+## [0.2.0](https://github.com/GiviKDev/oauth/compare/v0.1.0...v0.2.0) (2026-05-10)
+
+### Features
+
+* add MCP and Entra adapter packages ([39c1d60](https://github.com/GiviKDev/oauth/commit/39c1d60669538494faad4d19b0e50ff1289bd1b8))
+
 ## [0.1.0](https://github.com/GiviKDev/oauth/compare/v0.0.0...v0.1.0) (2026-05-10)
 
 ### Features
