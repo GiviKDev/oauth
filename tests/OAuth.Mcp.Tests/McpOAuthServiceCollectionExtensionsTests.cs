@@ -1,7 +1,7 @@
-using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json;
 
 namespace GiviKDev.OAuth.Mcp.Tests;
 
