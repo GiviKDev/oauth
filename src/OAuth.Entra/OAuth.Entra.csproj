@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Entra adapter for GiviKDev.OAuth — computes upstream URLs from tenant ID and strips the resource parameter.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OAuth\OAuth.csproj" />
+  </ItemGroup>
+
+</Project>
